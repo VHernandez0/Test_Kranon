@@ -70,6 +70,68 @@ namespace BL
             return result;
         }
 
+
+        public static ML.Result DeleteForAutor(ML.Libro libro)
+        {
+            ML.Result result = new ML.Result();
+            try
+            {
+                using (DL.BusquedaLibrosContext contex = new DL.BusquedaLibrosContext())
+                {
+                    int RowsAfected = contex.Database.ExecuteSqlRaw($"LibroDeleteForAutor {libro.Autor.IdAutor}");
+
+                    if (RowsAfected > 0)
+                    {
+                        result.Correct = true; ;
+                    }
+                    else
+                    {
+                        result.Correct = false;
+                        Console.WriteLine("Ocurrio un error al ingresar el libro");
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                result.Correct = false;
+                result.ErrorMessage = ex.Message;
+            }
+
+            return result;
+        }
+
+
+        public static ML.Result DeleteForEditorial(ML.Libro libro)
+        {
+            ML.Result result = new ML.Result();
+            try
+            {
+                using (DL.BusquedaLibrosContext contex = new DL.BusquedaLibrosContext())
+                {
+                    int RowsAfected = contex.Database.ExecuteSqlRaw($"LibroDeleteForEditorial {libro.Editorial.IdEditorial}");
+
+                    if (RowsAfected > 0)
+                    {
+                        result.Correct = true; ;
+                    }
+                    else
+                    {
+                        result.Correct = false;
+                        Console.WriteLine("Ocurrio un error al ingresar el libro");
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                result.Correct = false;
+                result.ErrorMessage = ex.Message;
+            }
+
+            return result;
+        }
+
         public static ML.Result GetByAutor(ML.Libro libro)
         {
             ML.Result result = new ML.Result();
