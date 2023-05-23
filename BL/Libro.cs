@@ -39,7 +39,6 @@ namespace BL
             return result;
         }
 
-
         public static ML.Result Update(ML.Libro libro)
         {
             ML.Result result = new ML.Result();
@@ -99,7 +98,6 @@ namespace BL
 
             return result;
         }
-
 
         public static ML.Result DeleteForEditorial(ML.Libro libro)
         {
@@ -178,6 +176,52 @@ namespace BL
             return result;
         }
 
+        public static ML.Result GetByTituloLibre(ML.Libro libro)
+        {
+            ML.Result result = new ML.Result();
+            try
+            {
+                using (DL.BusquedaLibrosContext contex = new DL.BusquedaLibrosContext())
+                {
+                    var RowsAfected = contex.Libros.FromSqlRaw($"LibroGetByTituloLibro  '{libro.Titulo}'").AsEnumerable().FirstOrDefault();
+
+                    result.Object = new object();
+                    if (RowsAfected != null)
+                    {
+
+                        libro.IdLibro = (int)RowsAfected.IdLibro;
+                        libro.Autor = new ML.Autor();
+                        libro.Autor.IdAutor = (int)RowsAfected.IdAutor;
+                        libro.Autor.Nombre = RowsAfected.IdAutorNavigation.Nombre;
+                        libro.Autor.ApellidoPaterno = RowsAfected.IdAutorNavigation.ApellidoPaterno;
+                        libro.Autor.ApellidoMaterno = RowsAfected.IdAutorNavigation.ApellidoMaterno;
+                        libro.Titulo = RowsAfected.TituloLibro;
+                        libro.AñoPublicacion = RowsAfected.AñoPublicacion.ToString("dd-MM-yyyy");
+                        libro.Editorial = new ML.Editorial();
+                        libro.Editorial.IdEditorial = RowsAfected.IdEditorialNavigation.IdEditorial;
+                        libro.Editorial.Nombre = RowsAfected.IdEditorialNavigation.Nombre;
+                        libro.Portada = RowsAfected.Portada;
+                        libro.Sinopsis = RowsAfected.Sinopsis;
+
+                        result.Object = libro;
+
+                        result.Correct = true;
+                    }
+                    else
+                    {
+                        result.Correct = false;
+                        result.ErrorMessage = "Ocurrió un error al obtener los registros en la tabla Libros";
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                result.Correct = false;
+                result.ErrorMessage = ex.Message;
+            }
+            return result;
+        }
 
         public static ML.Result GetByAutorAndFechaPublicacion(ML.Libro libro)
         {
