@@ -8,27 +8,27 @@ namespace SL_Kranon.Controllers
     {
         [HttpPost]
         [Route("api/Libro/Add")]
-        public IActionResult Add([FromBody] ML.Autor autor)
+        public IActionResult Add([FromBody] ML.Libro libro)
         {
-            ML.Result result = BL.Libro.Add(autor);
+            ML.Result result = BL.Libro.Add(libro);
             if (result.Correct)
             {
-                return Ok (result);
+                return Ok(result);
             }
             else
             {
                 return NotFound(result.ErrorMessage);
             }
- 
+
         }
 
         [HttpGet]
-        [Route("api/Libro/GetAll")]
-        public IActionResult GetAll()
+        [Route("api/Libro/Update")]
+        public IActionResult Update(ML.Libro libro)
         {
-            ML.Libro libro = new ML.Libro();
-            libro.Autor = new ML.Autor();
-            ML.Result result = BL.Libro.GetAll();
+
+
+            ML.Result result = BL.Libro.Update(libro);
             if (result.Correct)
             {
                 return Ok(result);
@@ -40,11 +40,40 @@ namespace SL_Kranon.Controllers
         }
 
         [HttpPost]
-        [Route("api/Libro/delete")]
-        public IActionResult delete([FromBody] int IdLibro)
+        [Route("api/Libro/GetByAutor")]
+        public IActionResult GetByAutor([FromBody] ML.Libro libro)
         {
-            ML.Libro libro = new ML.Libro();
-            ML.Result result = BL.Libro.Delete(IdLibro);
+
+            ML.Result result = BL.Libro.GetByAutor(libro);
+            if (result.Correct)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return NotFound(result.ErrorMessage);
+            }
+        }
+        [HttpPost]
+        [Route("api/Libro/GetByAutorAndFechaPublicacion")]
+        public IActionResult GetByAutorAndFechaPublicacion([FromBody] ML.Libro libro)
+        {
+
+            ML.Result result = BL.Libro.GetByAutorAndFechaPublicacion(libro);
+            if (result.Correct)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return NotFound(result.ErrorMessage);
+            }
+        }
+        [HttpPost]
+        [Route("api/Libro/GetByFechaPublicacion")]
+        public IActionResult GetByFechaPublicacion([FromBody] ML.Libro libro)
+        {
+            ML.Result result = BL.Libro.GetByFechaPublicacion(libro);
             if (result.Correct)
             {
                 return Ok(result);
