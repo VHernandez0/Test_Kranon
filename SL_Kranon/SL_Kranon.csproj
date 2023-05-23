@@ -14,7 +14,6 @@
   <ItemGroup>
     <ProjectReference Include="..\BL\BL.csproj" />
     <ProjectReference Include="..\ML\ML.csproj" />
-    <ProjectReference Include="..\PL_Kranon\PL_Kranon.csproj" />
   </ItemGroup>
 
 </Project>
