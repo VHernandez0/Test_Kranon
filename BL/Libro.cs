@@ -16,7 +16,7 @@ namespace BL
             {
                 using (DL.BusquedaLibrosContext contex = new DL.BusquedaLibrosContext())
                 {
-                    int RowsAfected = contex.Database.ExecuteSqlRaw($"LibroAdd {libro.Autor.IdAutor}, '{libro.Titulo}', '{libro.Año_Publicacion}', {libro.Editorial.IdEditorial}, '{libro.Portada}', '{libro.Sinopsis}'");
+                    int RowsAfected = contex.Database.ExecuteSqlRaw($"LibroAdd {libro.Autor.IdAutor}, '{libro.Titulo}', '{libro.AñoPublicacion}', {libro.Editorial.IdEditorial}, '{libro.Portada}', '{libro.Sinopsis}'");
 
                     if (RowsAfected > 0)
                     {
@@ -47,7 +47,7 @@ namespace BL
             {
                 using (DL.BusquedaLibrosContext contex = new DL.BusquedaLibrosContext())
                 {
-                    int RowsAfected = contex.Database.ExecuteSqlRaw($"LibroUpdate  {libro.IdLibro}, {libro.Autor.IdAutor}, '{libro.Titulo}', '{libro.Año_Publicacion}', {libro.Editorial.IdEditorial}, '{libro.Portada}', '{libro.Sinopsis}'");
+                    int RowsAfected = contex.Database.ExecuteSqlRaw($"LibroUpdate  {libro.IdLibro}, {libro.Autor.IdAutor}, '{libro.Titulo}', '{libro.AñoPublicacion}', {libro.Editorial.IdEditorial}, '{libro.Portada}', '{libro.Sinopsis}'");
 
                     if (RowsAfected > 0)
                     {
@@ -172,7 +172,7 @@ namespace BL
             {
                 using (DL.BusquedaLibrosContext contex = new DL.BusquedaLibrosContext())
                 {
-                    var RowsAfected = contex.Libros.FromSqlRaw($"LibroGetByFechaPublicacion  '{libro.Año_Publicacion}'").AsEnumerable().FirstOrDefault();
+                    var RowsAfected = contex.Libros.FromSqlRaw($"LibroGetByFechaPublicacion  '{libro.AñoPublicacion}'").AsEnumerable().FirstOrDefault();
 
                     result.Object = new object();
                     if (RowsAfected != null)

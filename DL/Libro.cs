@@ -11,7 +11,7 @@ public partial class Libro
 
     public string? TituloLibro { get; set; }
 
-    public DateTime? AñoPublicacion { get; set; }
+    public DateTime AñoPublicacion { get; set; }
 
     public int? IdEditorial { get; set; }
 
