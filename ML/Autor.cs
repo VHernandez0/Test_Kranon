@@ -8,11 +8,11 @@ namespace ML
 {
     public  class Autor
     {
-        public int Id { get; set; }
+        public int IdAutor { get; set; }
         public string Nombre { get; set; }
-        public string Apellido_Paterno { get; set; }
-        public string Apellido_materno { get; set; }
-        public string Fecha_Nacimiento { get; set; }
-        public string Pais_nacimiento { get; set; }
+        public string ApellidoPaterno { get; set; }
+        public string ApellidoMaterno { get; set; }
+        public string FechaNacimiento { get; set; }
+        public string PaisNacimiento { get; set; }
     }
 }
