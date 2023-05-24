@@ -58,7 +58,7 @@ namespace SL_Kranon.Controllers
         }
         [HttpGet]
         [Route("api/Libro/GetByAutorAndFechaPublicacion {IdAutor}, {Fecha}")]
-        public IActionResult GetByAutorAndFechaPublicacion(int IdAutor, string Fecha)
+        public IActionResult GetByAutorAndFechaPublicacion(int IdAutor, int Fecha)
         {
             ML.Libro libro = new ML.Libro();
             libro.Autor = new ML.Autor();
@@ -76,7 +76,7 @@ namespace SL_Kranon.Controllers
         }
         [HttpGet]
         [Route("api/Libro/GetByFechaPublicacion {Fecha}")]
-        public IActionResult GetByFechaPublicacion(string Fecha)
+        public IActionResult GetByFechaPublicacion(int Fecha)
         {
             ML.Libro libro = new ML.Libro();
             libro.AñoPublicacion = Fecha;
