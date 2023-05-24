@@ -127,6 +127,28 @@ namespace SL_Kranon.Controllers
                 return NotFound(result.ErrorMessage);
             }
         }
-     
+
+        [HttpPost]
+        [Route("api/Libro/Busqueda {'Nombre'},{'IdAutor'},{'IdEditorial'},{'Fecha'}")]
+        public IActionResult Busqueda(string Nombre, int IdAutor, int IdEditorial, string Fecha)
+        {
+            ML.Libro libro = new ML.Libro();
+            libro.Titulo = Nombre;
+            libro.Autor = new ML.Autor();
+            libro.Autor.IdAutor = IdAutor;
+            libro.Editorial = new ML.Editorial();
+            libro.Editorial.IdEditorial = IdEditorial;
+            libro.AñoPublicacion = Fecha;
+
+            ML.Result result = BL.Libro.Busqueda(libro);
+            if (result.Correct)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return NotFound(result.ErrorMessage);
+            }
+        }
     }
 }
