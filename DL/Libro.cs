@@ -11,7 +11,7 @@ public partial class Libro
 
     public string? TituloLibro { get; set; }
 
-    public DateTime? AñoPublicacion { get; set; }
+    public DateTime AñoPublicacion { get; set; }
 
     public int? IdEditorial { get; set; }
 
@@ -22,4 +22,11 @@ public partial class Libro
     public virtual Autor? IdAutorNavigation { get; set; }
 
     public virtual Editorial? IdEditorialNavigation { get; set; }
+
+
+
+    public string? Nombre { get; set; }
+    public string? Editorial { get; set; }
+    public string? ApellidoPaterno { get; set; }
+    public string? ApellidoMaterno { get; set; }
 }
