@@ -65,7 +65,6 @@ public partial class BusquedaLibrosContext : DbContext
 
             entity.ToTable("Libro");
 
-            entity.Property(e => e.AñoPublicacion).HasColumnType("datetime");
             entity.Property(e => e.Portada).IsUnicode(false);
             entity.Property(e => e.Sinopsis).IsUnicode(false);
             entity.Property(e => e.TituloLibro)

@@ -14,5 +14,7 @@ namespace ML
         public string ApellidoMaterno { get; set; }
         public string FechaNacimiento { get; set; }
         public string PaisNacimiento { get; set; }
+        public string NombreCompleto { get; set; }
+        public List<object> Autores { get; set; }
     }
 }

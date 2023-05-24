@@ -12,7 +12,8 @@ namespace ML
         public string Titulo { get; set; }
         public string Portada { get; set; }
         public string Sinopsis { get; set; }
-        public string AñoPublicacion { get; set; }
+        public int AñoPublicacion { get; set; }
+        public List<object> Libros { get; set; }
         public ML.Editorial Editorial { get; set; }
         public ML.Autor Autor { get; set; }
 

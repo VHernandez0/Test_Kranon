@@ -24,9 +24,12 @@ namespace SL_Kranon.Controllers
         [Route("api/Libro/GetAll")]
         public IActionResult GetAll()
         {
+
             ML.Libro libro = new ML.Libro();
             libro.Autor = new ML.Autor();
-            ML.Result result = BL.Libro.GetAll();
+            libro.Editorial = new ML.Editorial();
+            libro.Autor = new ML.Autor();
+            ML.Result result = BL.Libro.Busqueda(libro);
             if (result.Correct)
             {
                 return Ok(result);
@@ -36,6 +39,22 @@ namespace SL_Kranon.Controllers
                 return NotFound(result.ErrorMessage);
             }
         }
+
+        //[HttpPost]
+        //[Route("api/Libro/GetAll")]
+        //public IActionResult GetAll([FromBody] ML.Libro libro)
+        //{
+          
+        //    ML.Result result = BL.Libro.Busqueda(libro);
+        //    if (result.Correct)
+        //    {
+        //        return Ok(result);
+        //    }
+        //    else
+        //    {
+        //        return NotFound(result.ErrorMessage);
+        //    }
+        //}
 
         [HttpPost]
         [Route("api/Libro/delete")]
