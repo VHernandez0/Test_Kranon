@@ -1,0 +1,128 @@
+﻿@model ML.Libro
+@{
+    ViewBag.Title = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container">
+    <div class=row>
+        <div class="text-center">
+            <h2>Libros</h2>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <h5>Seleccione una Libro para editarlo o + para agregar...</h5>
+            <hr />
+        </div>
+    </div>
+
+</div>
+<div class="row">
+
+    <div class="col-md-12">
+        @using (Html.BeginForm("GetAll", "Libro", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="container">
+                <div style="float:right;">
+                    @Html.ActionLink("Agregar", "Form", "Form", htmlAttributes: new { @class = "btn btn-success bi bi-person-plus-fill" })
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.Titulo)
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <i class="fa-solid fa-circle-user"></i>
+                        </span>
+                        
+                        @Html.TextBoxFor(model => model.Titulo, new { @class = "form-control", @id = "txtNombre",@placeholder = "Nombre", @onkeypress="SoloLetras(event, 'txtNombre', 'lblNombre')"})
+
+                        @Html.ValidationMessageFor(model => model.Titulo,null, new{@class = "text-danger"})
+                        @Html.Label(null, "", new {@id = "lblNombre"})
+
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.AñoPublicacion)
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fa-solid fa-circle-user"></i></span>
+                        @Html.TextBoxFor(model => model.AñoPublicacion, new { @class = "form-control", @id = "txtApellidoPaterno", @placeholder = "Apellido Paterno", @onkeypress="SoloLetras(event, 'txtApellidoPaterno', 'lblApellidoPaterno')" })
+
+                        @Html.ValidationMessageFor(model => model.AñoPublicacion,null, new{@class = "text-danger"})
+                        @Html.Label(null,"", new{ @id = "lblApellidoPaterno"})
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.Autor)
+
+
+                    @Html.DropDownListFor(model => model.Autor.IdAutor, new SelectList(Model.Autor.Autores, "IdAutor", "NombreCompleto"), "Selecciona una opción", new { @class = "form-control" })
+
+                    @Html.ValidationMessageFor(model => model.Autor.IdAutor)
+
+                </div>
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.Editorial)
+
+
+                    @Html.DropDownListFor(model => model.Editorial.IdEditorial, new SelectList(Model.Editorial.Editoriales, "IdEditorial", "Nombre"), "Selecciona una opción", new { @class = "form-control" })
+
+                    @Html.ValidationMessageFor(model => model.Editorial.IdEditorial)
+
+                </div>
+            </div>
+            <br />
+            <div class="container">
+
+                <div class="col">
+                    <input type="submit" value="Buscar" class="btn btn-info" />
+
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<br />
+
+<table class="table   table-hover table-bordered table-responsive">
+    <thead>
+        <tr class="table-secondary">
+            <td>Editar</td>
+            <td style="display :none;">id</td>
+            <td>Autor</td>
+            <td>Titulo</td>
+            <td>Fecha de Publicacion</td>
+            <td>Editorial</td>
+            <td>Sinopsis</td>
+            <td> Portada</td>
+            <td>Eliminar</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (ML.Libro libro in Model.Libros)
+        {
+            <tr>
+                <td style="text-align: center; vertical-align: middle;"><a class="btn btn-warning glyphicon" href="@Url.Action("Form", "Aseguradora", new { idLibro = libro.IdLibro  })"><i class="bi bi-pencil-square" style="color: ivory"></i></a></td>
+                <td style="display :none;">@libro.IdLibro </td>
+                <td>@libro.Autor.Nombre @libro.Autor.ApellidoPaterno @libro.Autor.ApellidoMaterno</td>
+                <td>@libro.Titulo</td>
+                <td>@libro.AñoPublicacion</td>
+                <td>@libro.Editorial.Nombre </td>
+                <td>@libro.Sinopsis</td>
+                <td>@libro.Portada</td>
+      
+                <td style="text-align: center; vertical-align: middle;"><a class="btn btn-danger glyphicon glyphicon-trash" href="@Url.Action("Delete", "Aseguradora", new { idLibro= libro.IdLibro})" onclick="return confirm('Estas seguro que deseas eliminar este registro?');"><i class="bi bi-eraser-fill" style="color: mintcream"></i></a></td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+

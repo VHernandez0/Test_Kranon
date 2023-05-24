@@ -18,7 +18,7 @@ namespace BL
             {
                 using (DL.BusquedaLibrosContext contex = new DL.BusquedaLibrosContext())
                 {
-                    int RowsAfected = contex.Database.ExecuteSqlRaw($"LibroAdd {libro.Autor.IdAutor}, '{libro.Titulo}', '{libro.AñoPublicacion}', {libro.Editorial.IdEditorial}, '{libro.Portada}', '{libro.Sinopsis}'");
+                    int RowsAfected = contex.Database.ExecuteSqlRaw($"LibroAdd {libro.Autor.IdAutor}, '{libro.Titulo}', {libro.AñoPublicacion}, {libro.Editorial.IdEditorial}, '{libro.Portada}', '{libro.Sinopsis}'");
 
                     if (RowsAfected > 0)
                     {
@@ -49,7 +49,7 @@ namespace BL
             {
                 using (DL.BusquedaLibrosContext contex = new DL.BusquedaLibrosContext())
                 {
-                    int RowsAfected = contex.Database.ExecuteSqlRaw($"LibroUpdate  {libro.IdLibro}, {libro.Autor.IdAutor}, '{libro.Titulo}', '{libro.AñoPublicacion}', {libro.Editorial.IdEditorial}, '{libro.Portada}', '{libro.Sinopsis}'");
+                    int RowsAfected = contex.Database.ExecuteSqlRaw($"LibroUpdate  {libro.IdLibro}, {libro.Autor.IdAutor}, '{libro.Titulo}', {libro.AñoPublicacion}, {libro.Editorial.IdEditorial}, '{libro.Portada}', '{libro.Sinopsis}'");
 
                     if (RowsAfected > 0)
                     {
@@ -155,7 +155,7 @@ namespace BL
                             libro.Autor.ApellidoPaterno = obj.ApellidoPaterno;
                             libro.Autor.ApellidoMaterno = obj.ApellidoMaterno;
                             libro.Titulo = obj.TituloLibro;
-                            libro.AñoPublicacion = obj.AñoPublicacion.ToString("dd-MM-yyyy");
+                            libro.AñoPublicacion = (int)obj.AñoPublicacion;
                             libro.Editorial = new ML.Editorial();
                             libro.Editorial.IdEditorial = (int)obj.IdEditorial;
                             libro.Editorial.Nombre = obj.Editorial;
@@ -204,7 +204,7 @@ namespace BL
                             libro.Autor.ApellidoPaterno = obj.ApellidoPaterno;
                             libro.Autor.ApellidoMaterno = obj.ApellidoMaterno;
                             libro.Titulo = obj.TituloLibro;
-                            libro.AñoPublicacion = obj.AñoPublicacion.ToString("dd-MM-yyyy");
+                            libro.AñoPublicacion = (int)obj.AñoPublicacion;
                             libro.Editorial = new ML.Editorial();
                             libro.Editorial.IdEditorial = (int)obj.IdEditorial;
                             libro.Editorial.Nombre = obj.Editorial;
@@ -253,7 +253,7 @@ namespace BL
                             libro.Autor.ApellidoPaterno = obj.ApellidoPaterno;
                             libro.Autor.ApellidoMaterno = obj.ApellidoMaterno;
                             libro.Titulo = obj.TituloLibro;
-                            libro.AñoPublicacion = obj.AñoPublicacion.ToString("dd-MM-yyyy");
+                            libro.AñoPublicacion = (int)obj.AñoPublicacion;
                             libro.Editorial = new ML.Editorial();
                             libro.Editorial.IdEditorial = (int)obj.IdEditorial;
                             libro.Editorial.Nombre = obj.Editorial;
@@ -303,7 +303,7 @@ namespace BL
                             libro.Autor.ApellidoPaterno = obj.ApellidoPaterno;
                             libro.Autor.ApellidoMaterno = obj.ApellidoMaterno;
                             libro.Titulo = obj.TituloLibro;
-                            libro.AñoPublicacion = obj.AñoPublicacion.ToString("dd-MM-yyyy");
+                            libro.AñoPublicacion = (int)obj.AñoPublicacion;
                             libro.Editorial = new ML.Editorial();
                             libro.Editorial.IdEditorial = (int)obj.IdEditorial;
                             libro.Editorial.Nombre = obj.Editorial;
@@ -353,7 +353,7 @@ namespace BL
                             libro.Autor.ApellidoPaterno = obj.ApellidoPaterno;
                             libro.Autor.ApellidoMaterno = obj.ApellidoMaterno;
                             libro.Titulo = obj.TituloLibro;
-                            libro.AñoPublicacion = obj.AñoPublicacion.ToString("dd-MM-yyyy");
+                            libro.AñoPublicacion = (int)obj.AñoPublicacion;
                             libro.Editorial = new ML.Editorial();
                             libro.Editorial.IdEditorial = (int)obj.IdEditorial;
                             libro.Editorial.Nombre = obj.Editorial;
@@ -386,35 +386,30 @@ namespace BL
             {
                 using (DL.BusquedaLibrosContext context = new DL.BusquedaLibrosContext())
                 {
-                    var RowsAffected = context.Libros.FromSqlRaw($"LibrosGetAll '{libro.Titulo}','{libro.Autor.IdAutor}','{libro.Editorial.IdEditorial}','{libro.AñoPublicacion}'");
+                    var RowsAffected = context.Libros.FromSqlRaw($"LibrosGetAll '{libro.Titulo}', {libro.Autor.IdAutor}, {libro.Editorial.IdEditorial}, {libro.AñoPublicacion}").ToList();
                     result.Objects = new List<object>();
 
-                    if (context != null)
-                    {
+                  
                         foreach (var obj in RowsAffected)
                         {
-                            // ML.Libro libro = new ML.Libro();
-                            libro.IdLibro = (int)obj.IdLibro;
-                            libro.Autor = new ML.Autor();
-                            libro.Autor.IdAutor = (int)obj.IdAutor;
-                            libro.Autor.Nombre = obj.Nombre;
-                            libro.Autor.ApellidoPaterno = obj.ApellidoPaterno;
-                            libro.Autor.ApellidoMaterno = obj.ApellidoMaterno;
-                            libro.Titulo = obj.TituloLibro;
-                            libro.AñoPublicacion = obj.AñoPublicacion.ToString("dd-MM-yyyy");
-                            libro.Editorial = new ML.Editorial();
-                            libro.Editorial.IdEditorial = (int)obj.IdEditorial;
-                            libro.Editorial.Nombre = obj.Editorial;
-                            libro.Portada = obj.Portada;
-                            libro.Sinopsis = obj.Sinopsis;
-                            result.Objects.Add(libro);
+                           ML.Libro libro1 = new ML.Libro();
+                            libro1.IdLibro = (int)obj.IdLibro;
+                            libro1.Autor = new ML.Autor();
+                            libro1.Autor.IdAutor = (int)obj.IdAutor;
+                            libro1.Autor.Nombre = obj.Nombre;
+                            libro1.Autor.ApellidoPaterno = obj.ApellidoPaterno;
+                            libro1.Autor.ApellidoMaterno = obj.ApellidoMaterno;
+                            libro1.Titulo = obj.TituloLibro;
+                            libro1.AñoPublicacion = (int)obj.AñoPublicacion;
+                            libro1.Editorial = new ML.Editorial();
+                            libro1.Editorial.IdEditorial = (int)obj.IdEditorial;
+                            libro1.Editorial.Nombre = obj.Editorial;
+                            libro1.Portada = obj.Portada;
+                            libro1.Sinopsis = obj.Sinopsis;
+
+                            result.Objects.Add(libro1);
                         }
-                        result.Correct = true;
-                    }
-                    else
-                    {
-                        result.Correct = false;
-                    }
+                        result.Correct = true;              
                 }
             }
             catch (Exception ex)
@@ -425,8 +420,6 @@ namespace BL
 
             return result;
         }
-
-
 
 
     }
