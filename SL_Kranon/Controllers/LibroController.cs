@@ -40,21 +40,21 @@ namespace SL_Kranon.Controllers
             }
         }
 
-        //[HttpPost]
-        //[Route("api/Libro/GetAll")]
-        //public IActionResult GetAll([FromBody] ML.Libro libro)
-        //{
-          
-        //    ML.Result result = BL.Libro.Busqueda(libro);
-        //    if (result.Correct)
-        //    {
-        //        return Ok(result);
-        //    }
-        //    else
-        //    {
-        //        return NotFound(result.ErrorMessage);
-        //    }
-        //}
+        [HttpPost]
+        [Route("api/Libro/GetAll")]
+        public IActionResult GetAll([FromBody] ML.Libro libro)
+        {
+
+            ML.Result result = BL.Libro.Busqueda(libro);
+            if (result.Correct)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return NotFound(result.ErrorMessage);
+            }
+        }
 
         [HttpPost]
         [Route("api/Libro/delete")]

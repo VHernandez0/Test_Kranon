@@ -41,10 +41,10 @@
                             <i class="fa-solid fa-circle-user"></i>
                         </span>
                         
-                        @Html.TextBoxFor(model => model.Titulo, new { @class = "form-control", @id = "txtNombre",@placeholder = "Nombre", @onkeypress="SoloLetras(event, 'txtNombre', 'lblNombre')"})
+                        @Html.TextBoxFor(model => model.Titulo, new { @class = "form-control", @id = "txtNombre",@placeholder = "Titulo del libro"})
 
-                        @Html.ValidationMessageFor(model => model.Titulo,null, new{@class = "text-danger"})
-                        @Html.Label(null, "", new {@id = "lblNombre"})
+                    
+                  
 
                     </div>
                 </div>
@@ -53,10 +53,9 @@
                     @Html.LabelFor(model => model.AñoPublicacion)
                     <div class="input-group">
                         <span class="input-group-text"><i class="fa-solid fa-circle-user"></i></span>
-                        @Html.TextBoxFor(model => model.AñoPublicacion, new { @class = "form-control", @id = "txtApellidoPaterno", @placeholder = "Apellido Paterno", @onkeypress="SoloLetras(event, 'txtApellidoPaterno', 'lblApellidoPaterno')" })
+                        @Html.TextBoxFor(model => model.AñoPublicacion, new { @class = "form-control", @id = "publicacion" })
 
-                        @Html.ValidationMessageFor(model => model.AñoPublicacion,null, new{@class = "text-danger"})
-                        @Html.Label(null,"", new{ @id = "lblApellidoPaterno"})
+                        
                     </div>
                 </div>
 
@@ -66,7 +65,6 @@
 
                     @Html.DropDownListFor(model => model.Autor.IdAutor, new SelectList(Model.Autor.Autores, "IdAutor", "NombreCompleto"), "Selecciona una opción", new { @class = "form-control" })
 
-                    @Html.ValidationMessageFor(model => model.Autor.IdAutor)
 
                 </div>
                 <div class="col-md-3">
@@ -75,7 +73,7 @@
 
                     @Html.DropDownListFor(model => model.Editorial.IdEditorial, new SelectList(Model.Editorial.Editoriales, "IdEditorial", "Nombre"), "Selecciona una opción", new { @class = "form-control" })
 
-                    @Html.ValidationMessageFor(model => model.Editorial.IdEditorial)
+                 
 
                 </div>
             </div>
