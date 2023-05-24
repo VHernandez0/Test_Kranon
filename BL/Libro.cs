@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ namespace BL
 {
     public class Libro
     {
+
         public static ML.Result Add(ML.Libro libro)
         {
             ML.Result result = new ML.Result();
@@ -407,8 +409,7 @@ namespace BL
 
                             result.Objects.Add(libro1);
                         }
-                        result.Correct = true;
-                  
+                        result.Correct = true;              
                 }
             }
             catch (Exception ex)
@@ -419,6 +420,7 @@ namespace BL
 
             return result;
         }
+
 
     }
 }
