@@ -56,12 +56,12 @@ namespace SL_Kranon.Controllers
             }
         }
 
-        [HttpPost]
-        [Route("api/Libro/delete")]
-        public IActionResult delete([FromBody] int IdLibro)
+        [HttpGet]
+        [Route("api/Libro/Delete/{idLibro}")]
+        public IActionResult Delete(int idLibro)
         {
             ML.Libro libro = new ML.Libro();
-            libro.IdLibro = IdLibro;
+            libro.IdLibro = idLibro;
             ML.Result result = BL.Libro.DeleteForAutor(libro);
             if (result.Correct)
             {

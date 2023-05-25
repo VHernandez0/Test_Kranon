@@ -202,19 +202,17 @@ namespace PL_Kranon.Controllers
             return View(libro);
         }
 
-        [HttpPost]
-        public ActionResult Delete(int IdAutor)
+        [HttpGet]
+        public ActionResult Delete(int idLibro)
         {
             ML.Result resultListProduct = new ML.Result();
-            ML.Libro libro = new ML.Libro();
-
-            libro.Autor.IdAutor = IdAutor;
+          
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("http://localhost:5235/api/");
 
 
-                var postTask = client.GetAsync("api/Libro/DeleteforAutor" + libro);
+                var postTask = client.GetAsync("Libro/Delete/" + idLibro);
                 postTask.Wait();
 
                 var result = postTask.Result;

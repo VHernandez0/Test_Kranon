@@ -41,7 +41,7 @@ namespace BL
 
             return result;
         }
-
+         
         public static ML.Result Update(ML.Libro libro)
         {
             ML.Result result = new ML.Result();
@@ -79,7 +79,7 @@ namespace BL
             {
                 using (DL.BusquedaLibrosContext contex = new DL.BusquedaLibrosContext())
                 {
-                    int RowsAfected = contex.Database.ExecuteSqlRaw($"LibroDeleteForAutor {libro.Autor.IdAutor}");
+                    int RowsAfected = contex.Database.ExecuteSqlRaw($"LibroDeleteForAutor {libro.IdLibro}");
 
                     if (RowsAfected > 0)
                     {

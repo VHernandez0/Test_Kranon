@@ -118,10 +118,10 @@
                     <p class="card-text">@libro.Sinopsis</p>
 
                     <a class="btn btn-warning"
-                   href="@Url.Action("Form", "Libro", new {IdLibro=libro.IdLibro})">Ver
+                   href="@Url.Action("Form", "Libro", new {IdLibro=libro.IdLibro})">Actualizar
                         <i class="bi bi-pencil-square"></i>
                     </a>
-                    <a class="btn btn-danger glyphicon glyphicon-trash" href="@Url.Action("Delete","Libro",new {IdAutor=libro.Autor.IdAutor})"
+                    <a class="btn btn-danger glyphicon glyphicon-trash" href="@Url.Action("Delete","Libro",new {idLibro=libro.IdLibro})"
                    onclick="return confirm('Estas seguro de que deseas eliminar el Libro? ');">Eliminar</a>
                 </div>
 
