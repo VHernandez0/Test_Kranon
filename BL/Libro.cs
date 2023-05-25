@@ -393,21 +393,21 @@ namespace BL
                         foreach (var obj in RowsAffected)
                         {
                            ML.Libro libro1 = new ML.Libro();
-                            libro1.IdLibro = (int)obj.IdLibro;
-                            libro1.Autor = new ML.Autor();
-                            libro1.Autor.IdAutor = (int)obj.IdAutor;
-                            libro1.Autor.Nombre = obj.Nombre;
-                            libro1.Autor.ApellidoPaterno = obj.ApellidoPaterno;
-                            libro1.Autor.ApellidoMaterno = obj.ApellidoMaterno;
-                            libro1.Titulo = obj.TituloLibro;
-                            libro1.AñoPublicacion = (int)obj.AñoPublicacion;
-                            libro1.Editorial = new ML.Editorial();
-                            libro1.Editorial.IdEditorial = (int)obj.IdEditorial;
-                            libro1.Editorial.Nombre = obj.Editorial;
-                            libro1.Portada = obj.Portada;
-                            libro1.Sinopsis = obj.Sinopsis;
+                        libro1.IdLibro = (int)obj.IdLibro;
+                        libro1.Autor = new ML.Autor();
+                        libro1.Autor.IdAutor = (int)obj.IdAutor;
+                        libro1.Autor.Nombre = obj.Nombre;
+                        libro1.Autor.ApellidoPaterno = obj.ApellidoPaterno;
+                        libro1.Autor.ApellidoMaterno = obj.ApellidoMaterno;
+                        libro1.Titulo = obj.TituloLibro;
+                        libro1.AñoPublicacion = (int)obj.AñoPublicacion;
+                        libro1.Editorial = new ML.Editorial();
+                        libro1.Editorial.IdEditorial = (int)obj.IdEditorial;
+                        libro1.Editorial.Nombre = obj.Editorial;
+                        libro1.Portada = obj.Portada;
+                        libro1.Sinopsis = obj.Sinopsis;
 
-                            result.Objects.Add(libro1);
+                        result.Objects.Add(libro1);
                         }
                         result.Correct = true;              
                 }
@@ -418,6 +418,52 @@ namespace BL
                 result.ErrorMessage = ex.Message;
             }
 
+            return result;
+        }
+
+
+        public static ML.Result GetById(ML.Libro libro)
+        {
+            ML.Result result = new ML.Result();
+            try
+            {
+                using (DL.BusquedaLibrosContext contex = new DL.BusquedaLibrosContext())
+                {
+                    var RowsAfected = contex.Libros.FromSqlRaw($"LibroGetById {libro.IdLibro}").AsEnumerable().FirstOrDefault();
+                    result.Object = new object();
+                    if (RowsAfected != null)
+                    {
+
+                        libro.IdLibro = (int)RowsAfected.IdLibro;
+                        libro.Autor = new ML.Autor();
+                        libro.Autor.IdAutor = (int)RowsAfected.IdAutor;
+                        libro.Autor.Nombre = RowsAfected.Nombre;
+                        libro.Autor.ApellidoPaterno = RowsAfected.ApellidoPaterno;
+                        libro.Autor.ApellidoMaterno = RowsAfected.ApellidoMaterno;
+                        libro.Titulo = RowsAfected.TituloLibro;
+                        libro.AñoPublicacion = (int)RowsAfected.AñoPublicacion;
+                        libro.Editorial = new ML.Editorial();
+                        libro.Editorial.IdEditorial = (int)RowsAfected.IdEditorial;
+                        libro.Editorial.Nombre = RowsAfected.Editorial;
+                        libro.Portada = RowsAfected.Portada;
+                        libro.Sinopsis = RowsAfected.Sinopsis; 
+                        result.Object = libro;
+
+                        result.Correct = true;
+                    }
+                    else
+                    {
+                        result.Correct = false;
+                        result.ErrorMessage = "Ocurrió un error al obtener los registros en la tabla Aseguradora";
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                result.Correct = false;
+                result.ErrorMessage = ex.Message;
+            }
             return result;
         }
 
