@@ -72,5 +72,40 @@ namespace SL_Kranon.Controllers
                 return NotFound(result.ErrorMessage);
             }
         }
+
+        [HttpGet]
+        [Route("Api/Libro/GetbyId/{id}")]
+        public IActionResult GetById(int id)
+        {
+            ML.Libro libro = new ML.Libro();
+            libro.IdLibro = id;
+            var result = BL.Libro.GetById(libro);
+
+            if (result.Correct)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
+        [HttpPut]
+        [Route("api/Libro/update/")]
+        public IActionResult Put([FromBody] ML.Libro libro)
+        {
+            //usuario.IdUsuario = idUsuario;
+            var result = BL.Libro.Update(libro);
+
+            if (result.Correct)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
     }
 }
