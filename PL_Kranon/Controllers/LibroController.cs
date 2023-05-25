@@ -202,6 +202,35 @@ namespace PL_Kranon.Controllers
             return View(libro);
         }
 
+        [HttpPost]
+        public ActionResult Delete(int IdAutor)
+        {
+            ML.Result resultListProduct = new ML.Result();
+            ML.Libro libro = new ML.Libro();
+
+            libro.Autor.IdAutor = IdAutor;
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:5235/api/");
+
+
+                var postTask = client.GetAsync("api/Libro/DeleteforAutor" + libro);
+                postTask.Wait();
+
+                var result = postTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    ViewBag.Message = "Se Elimino con exito";
+                    return View("Modal");
+                    ;
+                }
+                else
+                {
+                    ViewBag.Message = "Error al eliminar";
+                    return View("Modal");
+                }
+            }
+        }
 
 
 

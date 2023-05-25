@@ -130,7 +130,7 @@ namespace SL_Kranon.Controllers
 
         [HttpPost]
         [Route("api/Libro/Busqueda {'Nombre'},{'IdAutor'},{'IdEditorial'},{'Fecha'}")]
-        public IActionResult Busqueda(string Nombre, int IdAutor, int IdEditorial, string Fecha)
+        public IActionResult Busqueda(string Nombre, int IdAutor, int IdEditorial, int Fecha)
         {
             ML.Libro libro = new ML.Libro();
             libro.Titulo = Nombre;

@@ -91,41 +91,43 @@
 <br />
 
 <table class="table   table-hover table-bordered table-responsive">
-    <thead>
-        <tr class="table-secondary">
-            <td>Editar</td>
-            <td style="display :none;">id</td>
-            <td>Autor</td>
-            <td>Titulo</td>
-            <td>Fecha de Publicacion</td>
-            <td>Editorial</td>
-            <td>Sinopsis</td>
-            <td> Portada</td>
-            <td>Eliminar</td>
-        </tr>
-    </thead>
     <tbody>
         @foreach (ML.Libro libro in Model.Libros)
         {
-            <tr>
-                <td style="text-align: center; vertical-align: middle;"><a class="btn btn-warning glyphicon" href="@Url.Action("Form", "Libro", new { idLibro = libro.IdLibro  })"><i class="bi bi-pencil-square" style="color: ivory"></i></a></td>
-                <td style="display :none;">@libro.IdLibro </td>
-                <td>@libro.Autor.Nombre @libro.Autor.ApellidoPaterno @libro.Autor.ApellidoMaterno</td>
-                <td>@libro.Titulo</td>
-                <td>@libro.AñoPublicacion</td>
-                <td>@libro.Editorial.Nombre </td>
-                <td>@libro.Sinopsis</td>
-                @if (libro.Portada == null)
-                {
-                    <td class="text-center"><img src="/Images/guest-user.png" width=200px height=200px /></td>
-                }
-                else
-                {
-                    <td> <img id="Img" src="data:image/*;base64,@libro.Portada" style="width:200px ; height:200px" /></td>
-                }
-      
-                <td style="text-align: center; vertical-align: middle;"><a class="btn btn-danger glyphicon glyphicon-trash" href="@Url.Action("Delete", "Aseguradora", new { idLibro= libro.IdLibro})" onclick="return confirm('Estas seguro que deseas eliminar este registro?');"><i class="bi bi-eraser-fill" style="color: mintcream"></i></a></td>
-            </tr>
+            
+        <td style="display :none;">@libro.IdLibro </td>
+
+        <div class="col row-cols-2 row-cols-md-3 g-4" style="display: inline-block; text-align-center">
+
+            <div class="card card border-dark mb-4 border-2 row" style="width: 22rem;">
+                    @if (libro.Portada == null)
+                    {
+                    <img src="/Images/guest-user.png" width=250px height=250px />
+
+                    }
+                    else
+                    {
+                    <img id="Img" src="data:image/*;base64,@libro.Portada" style="width:250px ; height:250px" />
+                    }
+                <div class="card-body; card-img-top;" style="width: 300px; height: 700px;">
+                    <h5 class="card-title card-header text-center bg-secondary" >@libro.Titulo</h5>
+                    <p class="card-text" >@libro.Autor.Nombre @libro.Autor.ApellidoPaterno @libro.Autor.ApellidoMaterno </p>
+                    <p class="card-text">@libro.Editorial.Nombre </p>
+                    <p class="card-text">@libro.AñoPublicacion</p>
+
+                    <p class="card-text">@libro.Sinopsis</p>
+
+                    <a class="btn btn-warning"
+                   href="@Url.Action("Form", "Libro", new {IdLibro=libro.IdLibro})">Ver
+                        <i class="bi bi-pencil-square"></i>
+                    </a>
+                    <a class="btn btn-danger glyphicon glyphicon-trash" href="@Url.Action("Delete","Libro",new {IdAutor=libro.Autor.IdAutor})"
+                   onclick="return confirm('Estas seguro de que deseas eliminar el Libro? ');">Eliminar</a>
+                </div>
+
+            </div>
+        </div>
+
         }
 
     </tbody>
